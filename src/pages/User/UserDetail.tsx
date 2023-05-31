@@ -6,6 +6,7 @@ import { UserDetailContainer, StyledLink, Title, Description, ButtonContainer, U
 
 export const UserDetail = () => {
   const { data, setData } = useContext(AppContext);
+  
   const params = useParams();
   const navigate = useNavigate();
   const handleUser = () => {
@@ -19,11 +20,15 @@ export const UserDetail = () => {
   const onBack = () => {
     navigate(-1);
   };
-
+  const onDelete = () => {
+    const updatedUsers = data.users.filter((element) => element.id.toString() !== params.id);
+    setData({ ...data, users: updatedUsers });
+    navigate(-1);
+  };
   useEffect(() => {
     handleUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params.id]);
 
   return (
     <UserDetailContainer>
@@ -37,12 +42,12 @@ export const UserDetail = () => {
       </ButtonContainer>
       <UserContainer>
         <Title>
-          {data.user?.name.toUpperCase()}
+          {data.user.name.toUpperCase()}
         </Title>
         <Description>{data.user?.email}</Description>
         <ButtonContainer>
         <ButtonShowMore onClick={onBack}>Back</ButtonShowMore>
-        <DeleteButton onClick={onBack}>Delete</DeleteButton>
+        <DeleteButton onClick={onDelete}>Delete</DeleteButton>
         </ButtonContainer>
       </UserContainer>
     </UserDetailContainer>

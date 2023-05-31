@@ -5,11 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { useGetUsers } from '../../modules/User/hooks/useGetUser';
 import { UserListContainer, UserContainer, Title, Description, ButtonShowMore } from './index.styled';
 import { Spin } from 'antd';
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from '../../context/index';
 export const UserList = () => {
-  const {loading } = useGetUsers();
-  const {data} = useContext(AppContext);
+  const {loading} = useGetUsers();
+  const {data,setData} = useContext(AppContext);
+useEffect(() => {
+    setData({ ...data, users: data.users });
+}, [loading,setData,data.users]);
+
   const navigate = useNavigate();
 
   const handleShowMore = (id: number) => {

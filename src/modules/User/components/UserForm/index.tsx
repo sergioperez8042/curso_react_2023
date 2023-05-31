@@ -9,12 +9,12 @@ import { IUser } from '../../../../models/user/user';
 
 type UserForm = {
   initialValue?: Omit<IUser, "id">;
-  onCreateUsers: (item: IUser) => void;
-
+  onCreateUsers: (item:IUser) => void;
+  
 };
 
 const postFormValidateSchema = Yup.object().shape({
-  username: Yup.string().required("Required").min(3),
+  name : Yup.string().required("Required").min(3),
   email: Yup.string().required("Required").email(),
   address: Yup.string().required("Required").min(3),
 });
@@ -45,33 +45,31 @@ export const UsersForm: FC<UserForm> = ({ onCreateUsers, initialValue }) => {
         },
       },
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { setSubmitting }) => {
+      setSubmitting(true);
       onCreateUsers({
         ...values,
         id: 0
       });
-      navigate(-1);
+      navigate("home");
+      setSubmitting(false);
     },
-    validationSchema: postFormValidateSchema,
+        validationSchema: postFormValidateSchema,
   });
 
-  // const onCreateUsers = (user: Omit<IUser, "id">) => {
-  //   const newId = users.length + 1; 
-  //   const newUser: IUser = { ...user, id: newId };
-  //   setUsers([...users, newUser]); 
-  // };
+  
   
   return (
     <ContainerStyle>
       <ContainerForm>
         <InputForm
-          name="username"
-          placeholder="Username"
+          name="name"
+          placeholder="Name"
           onChange={formik.handleChange}
-          value={formik.values.username}
-          error={!!formik.errors.username}
+          value={formik.values.name}
+          error={!!formik.errors.name}
         />
-        {formik.errors.username && <Error>{formik.errors.username}</Error>}
+        {formik.errors.name && <Error>{formik.errors.name}</Error>}
         
         <InputForm
           name="email"
