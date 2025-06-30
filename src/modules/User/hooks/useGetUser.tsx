@@ -6,7 +6,7 @@ import { IUser } from "../models/user/user";
 export const useGetUsers = () => {
   const [user, setUser] = useState<IUser[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState<string | undefined>(undefined);
   const { data, setData } = useContext(AppContext);
 
   const handleGetUser = async () => {
@@ -16,14 +16,15 @@ export const useGetUsers = () => {
       setUser(result.data);
       setData({ ...data, users: result.data });
 
-    } catch (error) {
-      setError(error.message);
+  } catch (error) {
+    setError((error as Error).message);
 
     }
     setLoading(false);
   };
   useEffect(() => {
     handleGetUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { user, loading, error };
@@ -31,7 +32,7 @@ export const useGetUsers = () => {
 
 export const useGetUser = (id: string) => {
   const [loading, setSloading] = useState<boolean>(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState<string | undefined>(undefined);
   const { data, setData } = useContext(AppContext);
   const handleGetUser = () => {
     setSloading(true);
@@ -42,7 +43,7 @@ export const useGetUser = (id: string) => {
       setData({ ...data, user: result! });
       setSloading(false);
     } catch (error) {
-      setError(error.message);
+      setError((error as Error).message);
       setSloading(false);
     }
   };
