@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { ContainerStyle } from "./index.styled";
 
 type ContainerProps = {

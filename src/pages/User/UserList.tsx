@@ -12,7 +12,7 @@ export const UserList = () => {
   const {data,setData} = useContext(AppContext);
 useEffect(() => {
     setData({ ...data, users: data.users });
-}, [loading,setData,data.users]);
+}, [loading, setData, data]);
 
   const navigate = useNavigate();
 

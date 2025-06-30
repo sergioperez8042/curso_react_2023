@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Suspense, lazy } from "react";
-import { Loading } from "../components/Loading";
+import { lazy } from "react";
 import { NavBar } from "../components/NavBar/NavBar";
 import { Home } from "../pages/home/Home";
 const UseRouter = lazy(() => import('../modules/User/routers/'));

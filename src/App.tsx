@@ -1,9 +1,4 @@
-import { Fragment, useEffect } from "react";
-import { MiPrimerComponente } from "./components/mir-primer-componente";
-import { MiSegundoComponente } from "./components/mir-segundo-componente";
-import { title } from "./mock";
-import { useState } from "react";
-import axios from "axios";
+
 import { RootRouter } from "./routers";
 
 
